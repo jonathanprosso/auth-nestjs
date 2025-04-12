@@ -1,4 +1,4 @@
-# Projeto NestJS - Curso do YouTube
+# Projeto auth-nestjs
 
 Este é um projeto desenvolvido teve por objetivo treinar autenticação o framework NestJS, aplicando conceitos como módulos, controllers, serviços e integração com banco de dados.
 

@@ -3,6 +3,6 @@ services:
     image: postgres:16.8-alpine3.20
     environment:
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: mydb
+      POSTGRES_DB: mypostgres
     ports:
       - 5432:5432
