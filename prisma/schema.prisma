@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  // output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,6 +14,18 @@ model User {
   email     String   @unique
   password  String
   role      Roles    @default(READER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Post      Post[]
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  published Boolean  @default(false)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
