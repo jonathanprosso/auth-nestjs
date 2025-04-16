@@ -3,11 +3,14 @@ import { Observable } from 'rxjs';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CaslAbilityService } from 'src/casl/casl-ability/casl-ability.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService,
-    private prismaService: PrismaService
+  constructor(
+    private jwtService: JwtService,
+    private prismaService: PrismaService,
+    private abilityService: CaslAbilityService
   ){}
   async canActivate(
     context: ExecutionContext,
@@ -26,7 +29,9 @@ export class AuthGuard implements CanActivate {
       // pegar o usuário e colocar na request
       const user = await  this.prismaService.user.findUnique({
         where: {id: payload.sub },
-      })
+      });
+
+      this.abilityService.createForUser(user);
 
       if(!user){
         throw new UnauthorizedException('User Not Found');
